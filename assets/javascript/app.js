@@ -47,45 +47,29 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey) {
   var destination = childSnapshot.val().destination;
   var firstTrain = childSnapshot.val().firstTrain;
   var frequency = childSnapshot.val().frequency;
+  var tFrequency = frequency;
+  var firstTime = firstTrain;
 
+  var firstTimeConverted = moment(firstTime, "hh:mm").subtract(1, "years");
+  console.log(firstTimeConverted);
 
-//Calculcation Pseudo code
+  var currentTime = moment();
+  console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
 
-// Next Arrival = Star time + frequency, take into account current time and change after passing that time
+  var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+  console.log("DIFFERENCE IN TIME: " + diffTime);
 
-//Minutes away = Next arrival - current time
+  var tRemainder = diffTime % tFrequency;
+  console.log(tRemainder);
 
+  var tMinutesTillTrain = tFrequency - tRemainder;
+  console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
 
-
-
-
-
-  // Prettify the employee start
-  // var empStartPretty = moment.unix(empStart).format("MM/DD/YY");
-
-  // // Calculate the months worked using hardcore math
-  // // To calculate the months worked
-  // var empMonths = moment().diff(moment.unix(empStart, "X"), "months");
-  // console.log(empMonths);
-
-  // // Calculate the total billed rate
-  // var empBilled = empMonths * empRate;
-  // console.log(empBilled);
-
-
-
-
-
+  var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+  var nextTrainFormatted = moment(nextTrain).format("hh:mm A");
 
   $("#train-table > tbody").append("<tr><td>" + trainName + "</td><td>" + destination + "</td><td>" +
-  firstTrain + "</td><td>" + frequency + "</td><td>");
+  nextTrainFormatted + "</td><td>" + frequency + "</td><td>"
+   + tMinutesTillTrain + "</td><td>"
+   );
 });
-
-
-
-
-
-
-
-
-
