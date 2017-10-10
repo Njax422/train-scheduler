@@ -1,0 +1,20 @@
+body {
+	background-image: url("../images/train3.jpeg");
+}
+
+.panel-primary>.panel-heading {
+	background-color: #a3123b;
+	border-color: gray;
+}
+
+#addTrain {
+	background-color: gray;
+}
+
+.panel-primary {
+    border-color: gray;
+}
+
+.btn-primary {
+    border-color: gray;
+}
